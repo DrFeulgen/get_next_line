@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:41:59 by bbataini          #+#    #+#             */
-/*   Updated: 2018/01/08 15:21:19 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/01/08 17:27:27 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,36 +61,48 @@ int		get_next_line(int const fd, char **line)
 	int			i;
 
 	i = 0;
-	save = "l";
+	save = "";
 	ret = 1;
 	//	ft_putstr("lkj\n");
-	//	line = (char **)malloc(sizeof(char *) * 1);
+	//line = (char **)malloc(sizeof(char *) * 1);
 	//	ft_putstr("ji\n");
 	//		ft_putstr("enter\n");
-	*line = (char *)malloc(sizeof(char) * BUF_SIZE);
+	*line = (char *)malloc(sizeof(char) * BUF_SIZE + 1);
 	//		ft_putstr("malloc\n");
-	while (ret == read(fd, *line, BUF_SIZE) == 1)
+	
+	while ((ret = read(fd, *line, BUF_SIZE)) > 0)
 	{
+	//	ft_putstr(*line);
+	//	ft_putstr("\n");
+		save = ft_strjoin(save, *line);
+//		ft_putstr("\n");
+		ft_putstr(save);
+//		ft_putstr("\n");
 		while (save[i])
 		{
-			if (*line[i] == '\n')
+			if (save[i] == '\n')
+			{
+				save[i] = '\0';
+			//	ft_putstr(save);
+				free(save);
+			//	save = "";
+				ft_putstr(save);
 				return (1);
+			}
 			i++;
-		save = ft_strjoin(save, *line);
 		}
-
-		//		ft_putstr("readok\n");
-		//		*save = (char *)malloc(sizeof(char) * addmal(*line, save));
-		//		ft_putstr("addmalok");
-		//		save = ft_addmal(&save);
-		//		ft_strcat(save, *line);
-		//		ft_save(save);
-		ft_putnbr(ret);
-
-		//		ft_putstr("\n");
-		//		ft_putstr(*line);
-		free(*line);
+		//ft_putstr("readok\n");
+		//*save = (char *)malloc(sizeof(char) * addmal(*line, save));
+		//ft_putstr("addmalok");
+		//save = ft_addmal(&save);
+		//ft_strcat(save, *line);
+		//ft_save(save);
+		//ft_putnbr(ret);
+	//	ft_putstr("\n");
+	//	ft_putstr(*line);
+	//	free(*line);
 	}
+	ft_putnbr(ret);
 	return (ret);
 }
 
@@ -105,14 +117,11 @@ int		main(int ac, char **av)
 		while (get_next_line(fd, &line) > 0)
 		{
 			ft_putstr("\n");
-			ft_putstr(line);
+		//	ft_putstr(line);
 		}
 	}
 	close(fd);
 	ft_putstr("outsuccess");
 	return (0);
 }
-
-
-
 
