@@ -57,11 +57,15 @@ int		get_next_line(int const fd, char **line)
 {
 	//	char **r;
 	static char *save;
+	char		*str;
+	char		*tmp;
 	int			ret;
 	int			i;
+	int			x;
 
 	i = 0;
-	save = "";
+	x = 0;
+	//	save = "";
 	ret = 1;
 	//	ft_putstr("lkj\n");
 	//line = (char **)malloc(sizeof(char *) * 1);
@@ -69,38 +73,50 @@ int		get_next_line(int const fd, char **line)
 	//		ft_putstr("enter\n");
 	*line = (char *)malloc(sizeof(char) * BUF_SIZE + 1);
 	//		ft_putstr("malloc\n");
-	
+
 	while ((ret = read(fd, *line, BUF_SIZE)) > 0)
 	{
-	//	ft_putstr(*line);
-	//	ft_putstr("\n");
+		if (!save)
+			save = "";
 		save = ft_strjoin(save, *line);
-//		ft_putstr("\n");
-		ft_putstr(save);
-//		ft_putstr("\n");
 		while (save[i])
 		{
 			if (save[i] == '\n')
 			{
-				save[i] = '\0';
-			//	ft_putstr(save);
+				str = (char *)malloc(sizeof(char) * i);
+				while (x < i)
+				{
+					str[x] = save[x];
+					x++;
+				}
+				str[x] = '\0';
+				x = ft_strlen(save);
+				tmp = (char *)malloc(sizeof(char) * x - i);
+				x = 0;
+				while (i < x)
+				{
+					tmp[x] = save[x + i];
+					x++;
+				}
 				free(save);
-			//	save = "";
+				save = (char *)malloc(sizeof(char) * ft_strlen(tmp));
+				x = 0;
+				while (tmp[x])
+				{
+					save[x] = tmp[x];
+					x++;
+				}
 				ft_putstr(save);
-				return (1);
+				ft_putstr("\0");
+				//ft_putstr(str);
+				free(str);
+				//ft_putstr("save");
+				//ft_putstr(save);
+				ft_putnbr(ret);
+				return (ret);
 			}
 			i++;
 		}
-		//ft_putstr("readok\n");
-		//*save = (char *)malloc(sizeof(char) * addmal(*line, save));
-		//ft_putstr("addmalok");
-		//save = ft_addmal(&save);
-		//ft_strcat(save, *line);
-		//ft_save(save);
-		//ft_putnbr(ret);
-	//	ft_putstr("\n");
-	//	ft_putstr(*line);
-	//	free(*line);
 	}
 	ft_putnbr(ret);
 	return (ret);
@@ -117,7 +133,7 @@ int		main(int ac, char **av)
 		while (get_next_line(fd, &line) > 0)
 		{
 			ft_putstr("\n");
-		//	ft_putstr(line);
+			//	ft_putstr(line);
 		}
 	}
 	close(fd);
