@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 17:30:15 by bbataini          #+#    #+#             */
-/*   Updated: 2018/01/03 17:04:18 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/08 14:39:56 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-# define BUF_SIZE 3
+int get_next_line(int const fd, char **line);
+
+# define BUFF_SIZE 5
 
 #endif
