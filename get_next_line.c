@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:41:59 by bbataini          #+#    #+#             */
-/*   Updated: 2018/02/15 15:21:49 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/15 17:18:55 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ int		makeline(int ret, char *save, char **line)
 {
 	int x;
 	int a;
-	ft_putstr("\nmakeline : ");
+//	ft_putstr("\nmakeline : ");
 	x = 0;
 	a = 0;
 	//ft_putstr("\nmakeline\n");
-	//ft_putstr(*line);
+//	ft_putstr("\nsave : ");
+//	ft_putstr(save);
 	if (!(*line = (char *)malloc(sizeof(char) * ret)))
 		return (-1);
 	if (ret != 0 || ft_strlen(save) != 0)
@@ -49,10 +50,14 @@ int		makeline(int ret, char *save, char **line)
 		a = 0;
 		if (save[0] == '\n')
 			{
-				save[0] = '\0';
-				//while (save[x])
-				//	save[a++] = save[x++];
-				return (1);
+			//	save[0] = '\0';
+				while (save[a + 1])
+				{
+					save[a] = save[a + 1];
+					a++;
+				}
+				save[a] = '\0';
+				return (2);
 			}
 		if (save[0] == '\0')
 		{
@@ -76,10 +81,12 @@ int		makeline2(char *save, char **line)
 	int x;
 	int a;
 
-	ft_putstr("\nmakeline2 : ");
+//	ft_putstr("\nmakeline2 : ");
 	x = 0;
 	a = 0;
 
+//	ft_putstr("\nsave2 : ");
+//	ft_putstr(save);
 	if (!(*line = (char *)malloc(sizeof(char) * BUFF_SIZE)))
 		return (-1);
 	if (save[0] == '\n')
@@ -90,6 +97,7 @@ int		makeline2(char *save, char **line)
 			save[x] = save[x + 1];
 			x++;
 		}
+		save[x] = '\0';
 	}
 //	ft_putstr(" line : ");
 //	ft_putstr(*line);
@@ -105,8 +113,6 @@ int		makeline2(char *save, char **line)
 	while (save[x])
 	{
 		save[a++] = save[x++];
-
-
 	}
 	//ft_putstr("\n");
 	//ft_putstr(save);
@@ -134,26 +140,33 @@ int		get_next_line(int const fd, char **line)
 		return (-1);
 	if (!save)
 		save = ft_strnew(BUFF_SIZE);
-	if (ft_memchr(save, '\n', ft_strlen(save)))
+	//ft_putstr(save);
+//	ft_putnbr(strlen(save));
+	if (ft_memchr(save, '\n', ft_strlen(save) ))
 	{
+//		ft_putstr("reg");
 		if (makeline2(save, &(*line)) == 2)
 			return (1);
 	}
 	while ((ret = read(fd, *line, BUFF_SIZE)) > 0)
 	{
-		ft_putstr("\nread : ");
+
+//		ft_putstr("\nread : ");
 //		ft_putnbr(ret);
 //		ft_putstr(*line);
-		if (ret < BUFF_SIZE)
-		{
+		//if (ret < BUFF_SIZE)
+		//{
 			if (!(str = (char *)malloc(sizeof(char) * (ft_strlen(*line) + 1))))
 				return (-1);
-			ft_strcpy(str, *line);
+			str = ft_strdup(*line);
+
 			*line = NULL;
+
 			if (!(*line = ft_strnew(ft_strlen(str) + ret)))
 				return (-1);
+
 			*line = ft_memcpy(*line , str, ret);
-		}
+		//}
 			
 		if (!(addmal(ret, save)))
 			return(-1);
