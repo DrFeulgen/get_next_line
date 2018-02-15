@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:41:59 by bbataini          #+#    #+#             */
-/*   Updated: 2018/02/15 14:25:31 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/15 15:21:49 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		makeline(int ret, char *save, char **line)
 {
 	int x;
 	int a;
-//	ft_putstr("\nmakeline : ");
+	ft_putstr("\nmakeline : ");
 	x = 0;
 	a = 0;
 	//ft_putstr("\nmakeline\n");
@@ -76,7 +76,7 @@ int		makeline2(char *save, char **line)
 	int x;
 	int a;
 
-//	ft_putstr("\nmakeline2 : ");
+	ft_putstr("\nmakeline2 : ");
 	x = 0;
 	a = 0;
 
@@ -141,7 +141,7 @@ int		get_next_line(int const fd, char **line)
 	}
 	while ((ret = read(fd, *line, BUFF_SIZE)) > 0)
 	{
-//		ft_putstr("\nread : ");
+		ft_putstr("\nread : ");
 //		ft_putnbr(ret);
 //		ft_putstr(*line);
 		if (ret < BUFF_SIZE)
