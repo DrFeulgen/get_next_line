@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 17:18:45 by bbataini          #+#    #+#             */
-/*   Updated: 2018/02/20 14:36:35 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/21 14:17:48 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[i + a] = s2[a];
 		a++;
 	}
-	//free(str);
 	str[i + a] = '\0';
 	return (str);
 }
