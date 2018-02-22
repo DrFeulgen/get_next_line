@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 16:30:08 by bbataini          #+#    #+#             */
-/*   Updated: 2018/02/20 16:28:02 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/22 15:51:22 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ void			ft_striter(char *s, void (*f)(char *));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 char			*ft_strjoin(char const *s1, char const *s2);
+
+char			*ft_strnjoin(char const *s1, char const *s2, int b);
 
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 

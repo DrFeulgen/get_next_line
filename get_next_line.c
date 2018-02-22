@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:41:59 by bbataini          #+#    #+#             */
-/*   Updated: 2018/02/21 15:06:28 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/22 17:15:51 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		makeline(int ret, char *save, char **line)
 			//save = NULL;
 			//free(save);
 			save[0] = '\0';
-			//free(save);
+		//	free(save);
 			return (2);
 		}
 		x++;
@@ -119,6 +119,7 @@ int		get_next_line(int const fd, char **line)
 {
 	static char *save;
 	char *str;
+	char *savetmp;
 	int			ret;
 
 	if (fd < 0 || BUFF_SIZE <= 0 || line == NULL || read(fd, *line, 0) < 0)
@@ -140,22 +141,29 @@ int		get_next_line(int const fd, char **line)
 		//		ft_putstr(*line);
 		if ((str = ft_strdup(*line)) == NULL)
 			return (-1);
-	//	ft_strdel(line);
-		if (!(*line = ft_strnew(ft_strlen(str) + ret)))
-			return (-1);
-		*line = ft_memcpy(*line , str, ret);
+		//ft_strdel(line);
+		//*line = "";
+		//if (!(*line = ft_strnew(ft_strlen(str) + ret)))
+		//	return (-1);
+		//*line = ft_memcpy(*line , str, ret);
 		//}
-		free(str);
+		//free(str);
 //		if (!(addmal(ret, save)))
 //			return(-1);
-		if (!(save = ft_strjoin(save, *line)))
+//		save = ft_strncat(save, *line, ret);
+		savetmp = ft_strdup(save);
+		free(save);
+		if (!(save = ft_strnjoin(savetmp, str, ret)))
 			return (-1);
+		free(savetmp);
+		free(str);
 //		*line = '\0';
-		free(*line);
+//		free(*line);
 		if (ft_memchr(save, '\n', ft_strlen(save)) || ret < BUFF_SIZE)
 		{
 			//	if ((makeline(ret, save, &(*line)) == 2))
 			//	return (1);
+		//	ft_strdel(line);
 			break;
 		}
 		//ft_putstr("\nil\n");
@@ -177,8 +185,10 @@ int		get_next_line(int const fd, char **line)
 	//if ((ft_memchr(save, '\n', ft_strlen(save)) || (ft_strlen(save) > 0)))
 	//{
 		if ((makeline(ret, save, &(*line)) == 2))
+{
+	//free(save);
 			return (1);
-	//}
+	}
 /*	if (*line == '\0' || save[0] == '\0')
 {
 //free(save);
@@ -188,6 +198,7 @@ int		get_next_line(int const fd, char **line)
 free(save);
 	return (0);
 }
+
 int		main(int ac, char **av)
   {
   char *line;
