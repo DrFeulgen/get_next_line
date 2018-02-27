@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 17:30:15 by bbataini          #+#    #+#             */
-/*   Updated: 2018/02/22 17:12:19 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/23 18:24:29 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@
 
 int get_next_line(int const fd, char **line);
 
-# define BUFF_SIZE 4
+# define BUFF_SIZE 2
 #endif

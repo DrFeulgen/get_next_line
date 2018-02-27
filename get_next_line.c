@@ -6,36 +6,17 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 16:41:59 by bbataini          #+#    #+#             */
-/*   Updated: 2018/02/22 17:15:51 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/27 14:34:20 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		addmal(int ret, char *save)
-{
-	char *tmp;
-
-	if (!(tmp = (char *)malloc(sizeof(char) * (ft_strlen(save) + 1))))
-		return (0);
-	//tmp = ft_strdup(save);
-	ft_strcpy(tmp, save);
-	//	free(save);
-	//	save = NULL;
-
-	if (!(save = ft_strnew(ft_strlen(tmp) + ret)))
-		return(0);
-	ft_strcpy(save, tmp);
-	tmp = NULL;
-	free(tmp);
-	return (1);
-}
-
 int		makeline(int ret, char *save, char **line)
 {
 	int x;
 	int a;
-	//	ft_putstr("\nmakeline : ");
+//		ft_putstr("\nmakeline : ");
 	x = 0;
 	a = 0;
 	if (!(*line = (char *)malloc(sizeof(char) * ft_strlen(save))))
@@ -50,10 +31,7 @@ int		makeline(int ret, char *save, char **line)
 		line[a][x] = '\0';
 		if (save[x] == '\0')
 		{
-			//save = NULL;
-			//free(save);
 			save[0] = '\0';
-		//	free(save);
 			return (2);
 		}
 		x++;
@@ -68,21 +46,21 @@ int		makeline(int ret, char *save, char **line)
 			save[a] = '\0';
 			return (2);
 		}
-		if (save[0] == '\0')
-			return (1);
+//		if (save[0] == '\0')
+//			return (1);
 		while (save[x])
 			save[a++] = save[x++];
 		save[a] = '\0';
 	}
 	return (2);
 }
-
+/*
 int		makeline2(char *save, char **line)
 {
 	int x;
 	int a;
 
-	//	ft_putstr("\nmakeline2 : ");
+//		ft_putstr("\nmakeline2 : ");
 	x = 0;
 	a = 0;
 	if (!(*line = (char *)malloc(sizeof(char) * ft_strlen(save))))
@@ -109,96 +87,49 @@ int		makeline2(char *save, char **line)
 	while (save[x])
 		save[a++] = save[x++];
 	save[a] = '\0';
-	//*line = NULL;
-	//free(*line);
-//	ft_strdel(line);
 	return (2);
-}
+}*/
 
 int		get_next_line(int const fd, char **line)
 {
 	static char *save;
-	char *str;
+	//char *str;
 	char *savetmp;
+	char buffer[BUFF_SIZE];
 	int			ret;
 
 	if (fd < 0 || BUFF_SIZE <= 0 || line == NULL || read(fd, *line, 0) < 0)
 		return (-1);
-	ret = BUFF_SIZE;
 	if (!(*line = (char *)malloc(sizeof(char) * BUFF_SIZE)))
 		return (-1);
 	if (!save)
 		save = ft_strnew(BUFF_SIZE);
-	if (ft_memchr(save, '\n', ft_strlen(save) ))
+/*	if (ft_memchr(save, '\n', ft_strlen(save) ))
 	{
-		if (makeline2(save, &(*line)) == 2)
+		if (makeline2(save, line) == 2)
 			return (1);
-	}
-	while ((ret = read(fd, *line, BUFF_SIZE)) > 0)
+	}*/
+	while ((ret = read(fd, buffer, BUFF_SIZE)) > 0)
 	{
-		//		ft_putstr("\nread : ");
-		//		ft_putnbr(ret);
-		//		ft_putstr(*line);
-		if ((str = ft_strdup(*line)) == NULL)
+	//			ft_putstr("\nread : ");
+	//ft_putnbr(ret);
+	//			ft_putstr(buffer);
+		savetmp = save;
+		if (!(save = ft_strnjoin(savetmp, buffer, ret)))
 			return (-1);
-		//ft_strdel(line);
-		//*line = "";
-		//if (!(*line = ft_strnew(ft_strlen(str) + ret)))
-		//	return (-1);
-		//*line = ft_memcpy(*line , str, ret);
-		//}
-		//free(str);
-//		if (!(addmal(ret, save)))
-//			return(-1);
-//		save = ft_strncat(save, *line, ret);
-		savetmp = ft_strdup(save);
-		free(save);
-		if (!(save = ft_strnjoin(savetmp, str, ret)))
-			return (-1);
+		//savetmp = NULL;
 		free(savetmp);
-		free(str);
-//		*line = '\0';
-//		free(*line);
+		savetmp = NULL;
 		if (ft_memchr(save, '\n', ft_strlen(save)) || ret < BUFF_SIZE)
-		{
-			//	if ((makeline(ret, save, &(*line)) == 2))
-			//	return (1);
-		//	ft_strdel(line);
 			break;
-		}
-		//ft_putstr("\nil\n");
-		//ft_putnbr(ret);
 	}
-	//	ft_putstr("\nsave : ");
-	//	ft_putstr(save);
 	if (ret == 0 && save[0] == '\0')
-	{
-		str= NULL;
-		free(str);
-		//ft_putstr("free");
-		save = NULL;
-		free(save);
-		*line = NULL;
-		free(*line);
 		return (0);
-	}
-	//if ((ft_memchr(save, '\n', ft_strlen(save)) || (ft_strlen(save) > 0)))
-	//{
-		if ((makeline(ret, save, &(*line)) == 2))
-{
-	//free(save);
+		if ((makeline(ret, save, line) == 2))
 			return (1);
-	}
-/*	if (*line == '\0' || save[0] == '\0')
-{
-//free(save);
-	return (0);
-}*/
-
-free(save);
 	return (0);
 }
-
+/*
 int		main(int ac, char **av)
   {
   char *line;
@@ -220,4 +151,4 @@ int		main(int ac, char **av)
   close(fd);
   ft_putstr("outsuccess");
   return (0);
-  }
+  }*/
