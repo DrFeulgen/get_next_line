@@ -6,7 +6,7 @@
 /*   By: bbataini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 16:30:08 by bbataini          #+#    #+#             */
-/*   Updated: 2018/02/22 15:51:22 by bbataini         ###   ########.fr       */
+/*   Updated: 2018/02/27 16:33:52 by bbataini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+int				ft_intchr(char *str, int c);
 
 t_list			*ft_lstnew(void const *content, size_t content_size);
 
@@ -108,6 +110,8 @@ char			*ft_strcpy(char *dst, const char *src);
 void			ft_strdel(char **as);
 
 char			*ft_strdup(const char *scr);
+
+char			*ft_strndup(const char *scr, int i);
 
 int				ft_strequ(char const *s1, char const *s2);
 

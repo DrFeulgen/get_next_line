@@ -6,7 +6,7 @@
 #    By: bbataini <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/10 19:11:14 by bbataini          #+#    #+#              #
-#    Updated: 2018/02/22 15:49:30 by bbataini         ###   ########.fr        #
+#    Updated: 2018/02/27 16:35:10 by bbataini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ ft_strsplit.c ft_memccpy.c ft_itoa.c \
 ft_memalloc.c ft_memdel.c ft_strmapi.c \
 ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c \
 ft_strrev.c ft_strupcase.c ft_strlowcase.c ft_strcapitalize.c ft_str_is_alpha.c \
-ft_strnjoin.c
+ft_strnjoin.c \
+ft_strndup.c \
+ft_intchr.c \
 
 OBJ = ft_isalnum.o ft_putchar.o ft_strchr.o ft_strlen.o ft_strnstr.o \
 ft_toupper.o ft_isalpha.o ft_putnbr.o ft_strcmp.o ft_strncat.o ft_strrchr.o \
@@ -49,6 +51,8 @@ ft_memalloc.o ft_memdel.o ft_strmapi.o \
 ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o ft_lstmap.o \
 ft_strrev.o ft_strupcase.o ft_strlowcase.o ft_strcapitalize.o ft_str_is_alpha.o \
 ft_strnjoin.o \
+ft_strndup.o \
+ft_intchr.o \
 
 all: $(NAME)
 
